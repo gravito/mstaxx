@@ -7,33 +7,32 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
 1. Create a S3 bucket to store configuration files. Eg: s3aayush.com
    * You can enable versioning
    * Currently region is confined to us-east-1, as other regions require extra work.
-1. Use aws configure command to configure access and secret keys.
+1. Launch an EC2 instance, and attach Full Admin IAM role to it.
 
 ## Now we first install Kubectl and Kops. Run following commands:
-   1. sudo apt-get install awscli
-   1. sudo apt-get update && sudo apt-get install -y apt-transport-https
-   1. curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-   1. echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee -a /etc/apt/sources.list.d/kubernetes.list
    1. sudo apt-get update
-   1. sudo apt-get install -y kubectl
-   1. wget https://github.com/kubernetes/kops/releases/download/1.10.0/kops-linux-amd64
+   1. sudo apt-get install -y awscli
+   1. aws configure
+      * Enter your secret key and access key, default region and output format.
+   1. curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+   1. chmod +x ./kubectl
+   1. sudo mv ./kubectl /usr/local/bin/kubectl
+   1. curl -LO https://github.com/kubernetes/kops/releases/download/$(curl -s https://api.github.com/repos/kubernetes/kops/releases/latest | grep tag_name | cut -d '"' -f 4)/kops-linux-amd64
    1. chmod +x kops-linux-amd64
-   1. mv kops-linux-amd64 /usr/local/bin/kops
+   1. sudo mv kops-linux-amd64 /usr/local/bin/kops
 
 ## Now we work on creating AWS Cluster using KOPS. Run following commands:
 1. export KOPS_STATE_STORE=s3://"your S3 bucket name"
    * your bucket name which you created earlier in AWS.
 1. ssh-keygen
    * this is needed to create ssh keys to access master node
-1. kops create cluster  --zones=ap-south-1a --cloud=aws --dns-zone="private DNS name" --dns=private --name=test.com
+   * Select default option for this demo
+1. kops create cluster --zones=ap-south-1a --cloud=aws --dns-zone="private DNS name" --dns=private --name=test.com
    * --zones: specifies the zone to provision cluster
    * --cloud: the cloud provider
    * --dns-zone: the dns zone you created earlier
 1. kops update cluster test.com --yes
-   * Note: If you get "UNABLE TO CREATE PERSISTENT VOLUME" error, try running following command before creating cluster:
-   
-     kubectl apply -f https://raw.githubusercontent.com/kubernetes/kubernetes/master/cluster/addons/storage-class/aws/default.yaml
-   * You can also edit the master node or worker node properties like node counts, amis, node size etc. using "kops edit" command. It 
+   * You can edit the master node or worker node properties like node counts, amis, node size etc. using "kops edit" command. It 
      would be displayed in the output.
 1. kops validate cluster
 1. kubectl get nodes --show-labels
