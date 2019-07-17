@@ -6,6 +6,7 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
 1. Create a hosted Zone to work with KOPS. For this demo, we use Private Hosted Zone. Eg: test-aayush.com
 1. Create a S3 bucket to store configuration files. Eg: s3aayush.com
    * You can enable versioning
+   * Currently region is confined to us-east-1, as other regions require extra work.
 1. Use aws configure command to configure access and secret keys.
 
 ## Now we first install Kubectl and Kops. Run following commands:
@@ -34,10 +35,11 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
      kubectl apply -f https://raw.githubusercontent.com/kubernetes/kubernetes/master/cluster/addons/storage-class/aws/default.yaml
    * You can also edit the master node or worker node properties like node counts, amis, node size etc. using "kops edit" command. It 
      would be displayed in the output.
-1. ssh  -i ~/.ssh/id_rsa admin@public-ip-master-node
-   * Your EC2 instances would be visible in the dashboard. Fetch the master node IP address.
+1. kops validate cluster
+1. kubectl get nodes --show-labels
+1. ssh  -i ~/.ssh/id_rsa admin@api.test.com
+   * Your EC2 instances would be visible in the dashboard. You can also fetch the master node IP address to ssh.
    * If used Ubuntu image for master, use ubuntu@ipaddress
-1. kubectl get nodes
   
 ## Now Kubernetes cluster has been created, create Ngninx Ingress controller for Load Balancing. We are using L4 ELB. Run following commands:
 1. kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/static/mandatory.yaml
