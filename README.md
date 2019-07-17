@@ -81,6 +81,6 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
 1. ./test.sh
    * You can observe spike in CPU Load, and replication of 5 controllers.
 
-## You can run entire kubernetes deployment using wrapper script. Prerequisite is that AWS Cluster should be deployed using KOPS.
+## You can run entire kubernetes deployment using wrapper script. Prerequisite is that Kubernetes Cluster should be deployed using KOPS.
 1. ./wrapper.sh
 
