@@ -32,8 +32,9 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
      kubectl apply -f https://raw.githubusercontent.com/kubernetes/kubernetes/master/cluster/addons/storage-class/aws/default.yaml
    * You can also edit the master node or worker node properties like node counts, amis, node size etc. using "kops edit" command. It 
      would be displayed in the output.
-1. ssh  -i .ssh/id_rsa admin@ipv4-public-ip-of-master
+1. ssh  -i ~/.ssh/id_rsa admin@public-ip-master-node
    * Your EC2 instances would be visible in the dashboard. Fetch the master node IP address.
+   * If used Ubuntu image for master, use ubuntu@ipaddress
 1. kubectl get nodes
   
 ## Now Kubernetes cluster has been created, create Ngninx Ingress controller for Load Balancing. We are using L4 ELB. Run following commands:
