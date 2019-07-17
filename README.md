@@ -3,7 +3,7 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
 
 ## Please create following in AWS:
 1. Create IAM role with Full Admin access on AWS.
-1. Create Private DNS. Eg: test-aayush.com
+1. Create a hosted Zone to work with KOPS. For this demo, we use Private Hosted Zone. Eg: test-aayush.com
 1. Create a bucket with the same name as private DNS. Eg: test-aayush.com
 
 ## Now we first install Kubectl and Kops. Run following commands:
