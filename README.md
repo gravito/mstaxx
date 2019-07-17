@@ -76,7 +76,7 @@ Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manuall
 1. chmod 777 test.sh
 1. ./test.sh
    * You can observe spike in CPU Load, and replication of 5 controllers.
-1. kubectl config set-context --current --namespace=staging
+1. kubectl config set-context --current --namespace=production
 1. chmod 777 test.sh
 1. ./test.sh
    * You can observe spike in CPU Load, and replication of 5 controllers.
