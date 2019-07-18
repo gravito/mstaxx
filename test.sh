@@ -11,7 +11,7 @@ for i in $var1
 do
 sleep 30
 if (( $(echo "$var2 > $var3" | bc -l) )); then
-    kubectl scale deployment frontend --replicas=5
+    kubectl scale deployment frontend --replicas=$i+3
 else
     echo "CPU Load not spiking"
 fi
