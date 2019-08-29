@@ -1,10 +1,7 @@
 # MStaxx Test Level#1
 The task for this test are:
-1. Create a Kubernetes cluster on GCP (GCP gives free credits on signup so those should suffice for this
-exercise). If possible share a script / code which can be used to create the cluster.
-2. Install nginx ingress controller on the cluster. For now, we consider that the user will add public IP of
-ingress LoadBalancer to their /etc/hosts file for all hostnames to be used. So do not worry about DNS
-resolution.
+1. Create a Kubernetes cluster.
+2. Install nginx ingress controller on the cluster. 
 3. On this cluster, create namespaces called staging and production.
 4. Install guest-book application on both namespaces.
 5. Expose staging application on hostname staging-guestbook.mstakx.io
@@ -13,8 +10,7 @@ resolution.
 based on CPU utilization of pods.
 8. Write a script which will demonstrate how the pods are scaling up and down by increasing/decreasing load
 on existing pods.
-9. Write a wrapper script which does all the steps above. Mention any pre-requisites in the README.md at
-the root of your repo.
+9. Write a wrapper script which does all the steps above.
 
 ## NOTE:
 Using AWS provider and KOPS to create Kubernetes cluster. Can also do it manually by using --cloud-provider, but there are many small configurations needed  (such as making instance hostname to that of privateDNS, using tags etc.), troubleshooting which can waste valuable time.
