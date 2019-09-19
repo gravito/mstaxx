@@ -1,5 +1,5 @@
-# MStaxx Test Level#1
-The task for this test are:
+# Kubernetes Playground using AWS
+The task for this playground are:
 1. Create a Kubernetes cluster.
 2. Install nginx ingress controller on the cluster. 
 3. On this cluster, create namespaces called staging and production.
